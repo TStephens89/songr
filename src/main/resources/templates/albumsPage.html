@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Songr Application</title>
+</head>
+<body>
+<ul th:each="Album : ${albums}">
+    <li th:text="'Album name: ' + ${Album.title}"></li>
+    <li th:text="'Artist: '+ ${Album.artist}"></li>
+    <li th:text="'Songs: '+ ${Album.songCount}"></li>
+    <li th:text="'Length: '+ ${Album.length}"></li>
+    <li th:text="'image: '+ ${Album.imageUrl}"></li>
+</ul>
+
+<form action="/" method="post">
+    <fieldset>
+        <legend>Add Album to Shelf</legend>
+        <label> Album name</label>
+        <input type="text" name="title"/>
+        <label>Artist</label>
+        <input type="text" name="artist">
+        <label>Songs</label>
+        <input type="text" name="songCount">
+        <label>Length</label>
+        <input type="text" name="length">
+        <label>Album Artwork</label>
+        <input type="text" name="imageUrl">
+        <input type="submit" value="Add Album">
+
+    </fieldset>
+</form>
+
+
+</body>
+</html>
