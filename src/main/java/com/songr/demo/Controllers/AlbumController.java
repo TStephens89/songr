@@ -1,7 +1,8 @@
 package com.songr.demo.Controllers;
 
 import com.songr.demo.models.Albums;
-import com.songr.demo.repositories.SongrApplication;
+import com.songr.demo.repositories.SongRepository;
+import com.songr.demo.repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,21 +15,30 @@ import java.util.List;
 public class AlbumController {
 
     @Autowired
-    SongrApplication SongrApplication;
+    AlbumRepository albumRepository;
+    @Autowired
+    SongRepository songRepository;
 
     @GetMapping("/")
     public String getAlbumsAgain(Model m) {
-        List<Albums> albums = SongrApplication.findAll();
+        List<Albums> albums = albumRepository.findAll();
         m.addAttribute("albums", albums);
         return "albumsPage";
     }
 
     @PostMapping("/")
-    public RedirectView createAlbums(String title, String artist, String songCount, double length, String imageUrl) {
-        Albums newAlbum = new Albums("My Beautiful Dark Twisted Fantasy", "Kanye West", "13", 68.39, "https://upload.wikimedia.org/wikipedia/en/f/f0/My_Beautiful_Dark_Twisted_Fantasy.jpg");
-        SongrApplication.save(newAlbum);
+    public RedirectView createAlbums(String title, String artist, String songCount, Double length, String imageUrl) {
+        Albums newAlbum = new Albums(title, artist, songCount, length, imageUrl);
+        albumRepository.save(newAlbum);
         return new RedirectView("/");
     }
+
+//    @PostMapping("/seed")
+//    public RedirectView seedAlbums() {
+//        Albums Album1 = new Albums("My Beautiful Dark Twisted Fantasy", "Kanye West", "13", 68.39, "https://upload.wikimedia.org/wikipedia/en/f/f0/My_Beautiful_Dark_Twisted_Fantasy.jpg");
+//        albumRepository.save(Album1);
+//        return new RedirectView("/");
+//    }
 }
 //
 //    @RequestMapping(value = "/", method = RequestMethod.GET)
