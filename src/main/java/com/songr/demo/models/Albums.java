@@ -1,8 +1,7 @@
 package com.songr.demo.models;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 public class Albums {
     @Id
@@ -10,13 +9,31 @@ public class Albums {
     long id;
     public String title;
     public String artist;
+    @OneToMany(mappedBy = "myAlbum")
+    public List<Song> songsOnThisAlbum;
+    protected Albums() {
+    }
+    public Albums(String title, String artist, String songCount, Double length, String imageUrl) {
+        this.title = title;
+        this.artist = artist;
+        this.songCount = songCount;
+        this.length = length;
+        this.imageUrl = imageUrl;
+    }
+    public List<Song> getSongsOnThisAlbum(){
+        return songsOnThisAlbum;
+    }
     public long getID(){
     return id;
 }
-
     public void setId(long id) {
         this.id = id;
     }
+
+//    public void setSongsOnThisAlbum(List<Song> songsOnThisAlbum) {
+//        this.songsOnThisAlbum = songsOnThisAlbum;
+//    }
+
 
     public String getTitle() {
         return title;
@@ -46,7 +63,7 @@ public class Albums {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(Double length) {
         this.length = length;
     }
 
@@ -58,18 +75,11 @@ public class Albums {
         this.imageUrl = imageUrl;
     }
 
-    public Albums(String title, String artist, String songCount, double length, String imageUrl) {
-        this.title = title;
-        this.artist = artist;
-        this.songCount = songCount;
-        this.length = length;
-        this.imageUrl = imageUrl;
-    }
-    public void findByArtist(String artist){
+    public void findByName(String artist){
         this.artist = artist;
     }
     public String songCount;
-    public double length;
+    public Double length;
     public String imageUrl;
 
 
